@@ -52,7 +52,9 @@ namespace LaCasaRural.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (reserva.DataEntrada < reserva.DataSortida)
+                var data_a_comprobar = new DateTime();
+                data_a_comprobar = data_a_comprobar.AddDays(1);
+                if (reserva.DataEntrada < reserva.DataSortida && reserva.DataSortida > data_a_comprobar)
                 {
                     db.Reserves.Add(reserva);
                     db.SaveChanges();
