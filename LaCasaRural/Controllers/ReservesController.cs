@@ -52,8 +52,11 @@ namespace LaCasaRural.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Reserves.Add(reserva);
-                db.SaveChanges();
+                if (reserva.DataEntrada < reserva.DataSortida)
+                {
+                    db.Reserves.Add(reserva);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
