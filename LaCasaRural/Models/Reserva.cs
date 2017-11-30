@@ -10,6 +10,7 @@ namespace LaCasaRural.Models
         public int IdReserva { get; set; }
         public DateTime DataEntrada { get; set; }
         
-
+        public int IdLlogater { get; set; }
+        public virtual Llogater Llogater { get; set; }
     }
 }

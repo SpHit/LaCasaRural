@@ -12,5 +12,7 @@ namespace LaCasaRural.Models
         public string CognomLlogater { get; set; }
         public int CodiPostal { get; set; }
         public string NIF { get; set; }
+
+        public virtual List<Reserva> Reserves { get; set; } = new List<Reserva>();
     }
 }
