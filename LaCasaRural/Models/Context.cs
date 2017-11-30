@@ -10,7 +10,5 @@ namespace LaCasaRural.Models
     {
         public DbSet<Llogater> Llogaters { get; set; }
         public DbSet<Reserva> Reserves { get; set; }
-        
-
     }
 }
