@@ -149,9 +149,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReservesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711301528075_LaCasaRural.cs" />
+    <Compile Include="Migrations\201711301528075_LaCasaRural.Designer.cs">
+      <DependentUpon>201711301528075_LaCasaRural.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Llogater.cs" />
     <Compile Include="Models\Reserva.cs" />
@@ -194,6 +200,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Reserves\Create.cshtml" />
+    <Content Include="Views\Reserves\Delete.cshtml" />
+    <Content Include="Views\Reserves\Details.cshtml" />
+    <Content Include="Views\Reserves\Edit.cshtml" />
+    <Content Include="Views\Reserves\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -210,6 +221,11 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711301528075_LaCasaRural.resx">
+      <DependentUpon>201711301528075_LaCasaRural.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
