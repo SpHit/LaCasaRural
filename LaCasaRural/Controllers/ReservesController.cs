@@ -58,7 +58,7 @@ namespace LaCasaRural.Controllers
                 {
                     db.Reserves.Add(reserva);
                     db.SaveChanges();
-                }//
+                }
                 return RedirectToAction("Index");
             }
 
