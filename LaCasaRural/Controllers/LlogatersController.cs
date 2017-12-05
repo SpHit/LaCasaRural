@@ -60,8 +60,13 @@ namespace LaCasaRural.Controllers
                 }
                 catch (DbEntityValidationException ex)
                 {
-                    var error = ex.EntityValidationErrors.First().ValidationErrors.First();
-                    this.ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                    foreach (var entityValidationError in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in entityValidationError.ValidationErrors)
+                        {
+                            this.ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
                 }
                 return RedirectToAction("Index");
             }
