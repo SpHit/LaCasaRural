@@ -54,11 +54,11 @@ namespace LaCasaRural.Controllers
             if (ModelState.IsValid)
             {
                 db.Reserves.Add(reserva);
-
                 try
                 {
                     db.SaveChanges();
-                } catch(DbEntityValidationException ex)
+                }
+                catch (DbEntityValidationException ex)
                 {
                     foreach (var entityValidationError in ex.EntityValidationErrors)
                     {
@@ -68,10 +68,9 @@ namespace LaCasaRural.Controllers
                         }
                     }
                 }
-
+                
                 return RedirectToAction("Index");
             }
-
             ViewBag.IdLlogater = new SelectList(db.Llogaters, "IdLlogater", "NomLlogater", reserva.IdLlogater);
             return View(reserva);
         }

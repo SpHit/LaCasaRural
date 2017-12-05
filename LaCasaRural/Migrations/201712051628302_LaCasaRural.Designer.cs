@@ -7,13 +7,13 @@ namespace LaCasaRural.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CasaRural : IMigrationMetadata
+    public sealed partial class LaCasaRural : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CasaRural));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(LaCasaRural));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711301450508_CasaRural"; }
+            get { return "201712051628302_LaCasaRural"; }
         }
         
         string IMigrationMetadata.Source

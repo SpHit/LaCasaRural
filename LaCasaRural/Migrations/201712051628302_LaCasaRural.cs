@@ -3,7 +3,7 @@ namespace LaCasaRural.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CasaRural : DbMigration
+    public partial class LaCasaRural : DbMigration
     {
         public override void Up()
         {
@@ -12,7 +12,7 @@ namespace LaCasaRural.Migrations
                 c => new
                     {
                         IdLlogater = c.Int(nullable: false, identity: true),
-                        NomLlogater = c.String(),
+                        NomLlogater = c.String(maxLength: 200),
                         CognomLlogater = c.String(),
                         CodiPostal = c.Int(nullable: false),
                         NIF = c.String(),
@@ -25,6 +25,7 @@ namespace LaCasaRural.Migrations
                     {
                         IdReserva = c.Int(nullable: false, identity: true),
                         DataEntrada = c.DateTime(nullable: false),
+                        DataSortida = c.DateTime(),
                         IdLlogater = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.IdReserva)

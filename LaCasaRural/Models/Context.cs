@@ -22,7 +22,7 @@ namespace LaCasaRural.Models
                 .HasRequired(r => r.Llogater)
                 .WithMany(m => m.Reserves)
                 .HasForeignKey(k => k.IdLlogater)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
         }
         protected override DbEntityValidationResult ValidateEntity(DbEntityEntry entityEntry, IDictionary<object, object> items)
         {
