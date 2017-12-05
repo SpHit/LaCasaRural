@@ -18,7 +18,11 @@ namespace LaCasaRural.Models
         {
             base.OnModelCreating(builder);
 
-            
+            builder.Entity<Reserva>()
+                .HasRequired(r => r.Llogater)
+                .WithMany(m => m.Reserves)
+                .HasForeignKey(k => k.IdLlogater)
+                .WillCascadeOnDelete(false);
         }
         protected override DbEntityValidationResult ValidateEntity(DbEntityEntry entityEntry, IDictionary<object, object> items)
         {
@@ -31,7 +35,7 @@ namespace LaCasaRural.Models
                 Llogater llogater = entityEntry.Entity as Llogater;
 
                 bool comprobar_codi_postal = Regex.Match(llogater.CodiPostal + "", @"^([1-9]{2}|[0-9][1-9]|[1-9][0-9])[0-9]{3}$", RegexOptions.IgnoreCase).Success;
-                bool comprobar_nif = Regex.Match(llogater.CodiPostal + "", @"/^[0-9]{8}[A-Z]$/i", RegexOptions.IgnoreCase).Success;
+                bool comprobar_nif = Regex.Match(llogater.NIF + "", @"^[0-9]{8}[A-Z]{1}$", RegexOptions.IgnoreCase).Success;
                 bool comprobar_nom = (llogater.NomLlogater.Length >= 20 && llogater.NomLlogater.Length <= 200);
                 bool comprobar_cognom = (llogater.CognomLlogater.Length >= 20 && llogater.CognomLlogater.Length <= 200);
 
@@ -59,6 +63,10 @@ namespace LaCasaRural.Models
                         new System.Data.Entity.Validation.DbValidationError("CognomLlogater",
                         "Amb compte! El format del Cognom introduit no és valid ha de tenir una longitura mínima de 20 caracters i màxima de 200 caracters"));
                 }
+                if (result.ValidationErrors.Count >= 0)
+                {
+                    return result;
+                }
             } else if (entityEntry.Entity is Reserva &&
                 (entityEntry.State == EntityState.Added ||
                 entityEntry.State == EntityState.Modified))
@@ -77,11 +85,15 @@ namespace LaCasaRural.Models
                         new System.Data.Entity.Validation.DbValidationError( "DataEntrada",
                         "La data d'entrada no pot ser més posterior a la data de sortida!"));
                 }
-                if (dataEntrada < data_a_comprobar)
+                if (dataEntrada < data_a_comprobar.Date)
                 {
                     result.ValidationErrors.Add(
                         new System.Data.Entity.Validation.DbValidationError("DataEntrada",
                         "La data d'entrada ha de ser de almenys 24 hores més tard que la data actual"));
+                }
+                if (result.ValidationErrors.Count >= 0)
+                {
+                    return result;
                 }
             }
 

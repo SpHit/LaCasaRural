@@ -67,11 +67,10 @@ namespace LaCasaRural.Controllers
                             this.ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
                         }
                     }
+                    return View(llogater);
                 }
-                return RedirectToAction("Index");
             }
-
-            return View(llogater);
+            return RedirectToAction("Index");
         }
 
         // GET: Llogaters/Edit/5
