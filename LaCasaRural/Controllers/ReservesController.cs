@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LaCasaRural.Models;
+using System.Data.Entity.Validation;
 
 namespace LaCasaRural.Controllers
 {
@@ -52,13 +53,22 @@ namespace LaCasaRural.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data_a_comprobar = new DateTime();
-                data_a_comprobar = data_a_comprobar.AddDays(1);
-                if (reserva.DataEntrada < reserva.DataSortida && reserva.DataSortida > data_a_comprobar)
+                db.Reserves.Add(reserva);
+
+                try
                 {
-                    db.Reserves.Add(reserva);
                     db.SaveChanges();
+                } catch(DbEntityValidationException ex)
+                {
+                    foreach (var entityValidationError in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in entityValidationError.ValidationErrors)
+                        {
+                            this.ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
                 }
+
                 return RedirectToAction("Index");
             }
 

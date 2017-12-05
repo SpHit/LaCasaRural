@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using LaCasaRural.Models;
 using System.Text.RegularExpressions;
+using System.Data.Entity.Validation;
 
 namespace LaCasaRural.Controllers
 {
@@ -51,13 +52,16 @@ namespace LaCasaRural.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool comprobar_codi_postal = Regex.Match(llogater.CodiPostal + "", @"^([1-9]{2}|[0-9][1-9]|[1-9][0-9])[0-9]{3}$", RegexOptions.IgnoreCase).Success;
-                bool comprobar_nif = Regex.Match(llogater.CodiPostal + "", @"/^[0-9]{8}[A-Z]$/i", RegexOptions.IgnoreCase).Success;
-
-                if (comprobar_codi_postal && comprobar_nif)
+                db.Llogaters.Add(llogater);
+                try
                 {
-                    db.Llogaters.Add(llogater);
                     db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    var error = ex.EntityValidationErrors.First().ValidationErrors.First();
+                    this.ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
                 return RedirectToAction("Index");
             }
