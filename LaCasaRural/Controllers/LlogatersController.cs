@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LaCasaRural.Models;
+using System.Text.RegularExpressions;
 
 namespace LaCasaRural.Controllers
 {
@@ -50,8 +51,14 @@ namespace LaCasaRural.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Llogaters.Add(llogater);
-                db.SaveChanges();
+                bool comprobar_codi_postal = Regex.Match(llogater.CodiPostal + "", @"^([1-9]{2}|[0-9][1-9]|[1-9][0-9])[0-9]{3}$", RegexOptions.IgnoreCase).Success;
+                bool comprobar_nif = Regex.Match(llogater.CodiPostal + "", @"/^[0-9]{8}[A-Z]$/i", RegexOptions.IgnoreCase).Success;
+
+                if (comprobar_codi_postal && comprobar_nif)
+                {
+                    db.Llogaters.Add(llogater);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
